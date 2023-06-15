@@ -4,8 +4,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import EstructurasAuxiliares.Arista;
+
 public class CSVReader {
 	private String path;
+	private ArrayList<Arista<Integer>> caminos; 
 	
 	public CSVReader(String path) {
 		this.path = path;
@@ -16,14 +19,18 @@ public class CSVReader {
 		// lines.get(0) tiene la primer linea del archivo
 		// lines.get(1) tiene la segunda linea del archivo... y así
 		ArrayList<String[]> lines = this.readContent();
-		
+		/* Cada vez que se llama a la funcion read, se borran y 
+		vuelven a cargar los mismos/nuevos caminos */
+		this.caminos = new ArrayList<>(lines.size());
+
 		for (String[] line: lines) {
 			// Cada linea es un arreglo de Strings, donde cada posicion guarda un elemento
 			Integer origen = Integer.parseInt(line[0].trim().substring(1));
 			Integer destino = Integer.parseInt(line[1].trim().substring(1));
 			Integer etiqueta = Integer.parseInt(line[2].trim());
-			// Aca instanciar lo que necesiten en base a los datos leidos
       
+			// Se crean y agregan los caminos al arraylist de caminos, para luego ser ordenados ascendentemente
+			this.caminos.add(new Arista<>(origen, destino, etiqueta));
     }
 	}
 
