@@ -5,10 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import EstructurasAuxiliares.Arista;
+import EstructurasAuxiliares.ServicioMergeSort;
 
 public class CSVReader {
 	private String path;
-	private ArrayList<Arista<Integer>> caminos; 
+	private ArrayList<Arista> caminos; 
 	
 	public CSVReader(String path) {
 		this.path = path;
@@ -30,7 +31,7 @@ public class CSVReader {
 			Integer etiqueta = Integer.parseInt(line[2].trim());
       
 			// Se crean y agregan los caminos al arraylist de caminos, para luego ser ordenados ascendentemente
-			this.caminos.add(new Arista<>(origen, destino, etiqueta));
+			this.caminos.add(new Arista(origen, destino, etiqueta));
     }
 	}
 
@@ -59,6 +60,14 @@ public class CSVReader {
 		}
 		
 		return lines;
+	}
+
+	public ArrayList<Arista> getCaminosGreedy(){
+		ServicioMergeSort servicio = new ServicioMergeSort(this.caminos);
+		// Se ordenan ascendentemente los caminos (teniendo en cuenta la distancia entre las estaciones)
+		servicio.sort();
+		System.out.println(this.caminos);
+		return new ArrayList<>();
 	}
 
 }
