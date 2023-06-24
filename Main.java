@@ -11,7 +11,10 @@ public class Main {
 		CSVReader reader = new CSVReader(path);
     // El objeto lee el archivo que le pasamos y desmenuza cada registro.
 		reader.read();
-    reader.getCaminosGreedy();
-	}
+
+    System.out.println("\nSolucion por greedy:\n");
+    reader.encontrarSolucionPorGreedy();
+    
+  }
 
 }
