@@ -55,16 +55,18 @@ public class UnionFind {
     return null;
   }
 
-  public void union(Arista arista){
+  public boolean union(Arista arista){
     Nodo<Integer> aux1 = getJoinId(arista.getVertice1());
     Nodo<Integer> aux2 = getJoinId(arista.getVertice2());
     // System.out.println("Arista a ingresar: " + arista); // Permite controlar todos las aristas llamadas (no necesariamente se agregaron a caminosViables)
-    if(aux1.equals(aux2)){return;}
+    if(aux1.equals(aux2)){return false;}
     Nodo<Integer> padreDeAmbos = new Nodo<>();
     aux1.setUpper(padreDeAmbos);
     aux2.setUpper(padreDeAmbos);
     this.longitudTotal += arista.getValor();
     this.caminosViables.add(arista);
+
+    return true;
   }
 
   public boolean unionComplete(){

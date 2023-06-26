@@ -10,10 +10,16 @@ public class Main {
     // Se crea un objeto CSVReader
 		CSVReader reader = new CSVReader(path);
     // El objeto lee el archivo que le pasamos y desmenuza cada registro.
-		reader.read();
+    reader.read();
 
-    System.out.println("\nSolucion por greedy:\n");
-    reader.encontrarSolucionPorGreedy();
+    System.out.println("Los posibles caminos son: ");
+    System.out.println(reader.getPosiblesCaminos());
+
+    // System.out.println("\nSolucion por greedy:");
+    // reader.encontrarSolucionPorGreedy();
+    
+    System.out.println("\nSolucion por backtracking:");
+    reader.encontrarSolucionPorBackTracking();
     
   }
 
