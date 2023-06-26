@@ -4,10 +4,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import EstructurasAuxiliares.Arista;
+import EstructurasAuxiliares.Pila;
 import EstructurasAuxiliares.ServicioMergeSort;
-import EstructurasAuxiliares.listaAcum.Pila2;
 import EstructurasAuxiliares.unionFind.UnionFind;
 
 public class CSVReader {
@@ -85,10 +86,10 @@ public class CSVReader {
 		int indiceAct = 0;
 
 		while((!servicioUnion.unionComplete()) && (indiceAct < caminosAux.size())){
-			System.out.println("Ejecucion nro: " + this.contadorParaGreedy++);
+			this.contadorParaGreedy++; // Se aumenta en 1 el contador de cantidad de veces que se ejecuto el metodo greedy.
 			servicioUnion.union(caminosAux.get(indiceAct++));
 		}
-
+		System.out.println("El greedy se ejecutó " + contadorParaGreedy + " veces.");
 		if(servicioUnion.unionComplete()){
 			System.out.println("Caminos a construir: " + servicioUnion.getCaminosViables());
 			System.out.println("La suma de los caminos anteriores da un total de: " + servicioUnion.getLongitudTotal() + " km.");
@@ -99,11 +100,11 @@ public class CSVReader {
 
 	
 	public void encontrarSolucionPorBackTracking(){
-		Pila2 mejorSolucion = new Pila2();
-		Pila2 solucionActual = new Pila2();
+		Pila mejorSolucion = new Pila();
+		Pila solucionActual = new Pila();
 		this.contadorParaBackTracking = 1;
 		auxBackMejorSolucionValida(mejorSolucion, solucionActual);
-		
+		System.out.println("El backtracking se ejecutó " + contadorParaBackTracking + " veces.");
 		if(!mejorSolucion.isEmpty()){
 			System.out.println("Caminos a construir: " + mejorSolucion);
 			System.out.println("La suma de los caminos anteriores da un total de: " + mejorSolucion.getSumatoria() + " km.");			
@@ -112,8 +113,8 @@ public class CSVReader {
 		}
 	}
 
-	public void auxBackMejorSolucionValida(Pila2 mejorSolucion, Pila2 solucionActual){
-		System.out.println("Ejecucion nro: " + this.contadorParaBackTracking++);
+	public void auxBackMejorSolucionValida(Pila mejorSolucion, Pila solucionActual){
+		this.contadorParaBackTracking++; // Se aumenta en 1 el contador de cantidad de veces que se ejecuto el metodo backtracking.
 		// Quiere decir que ya encontró a la minima cantidad de caminos necesarios 
 		// para unir las n estaciones con n-1 caminos
 		if(backtrackingSolucionValida(mejorSolucion, solucionActual)){
@@ -144,7 +145,7 @@ public class CSVReader {
 		}
 	}
 
-	private boolean backtrackingSolucionValida(Pila2 mejorSolucion, Pila2 solucionActual){
+	private boolean backtrackingSolucionValida(Pila mejorSolucion, Pila solucionActual){
 		// Primero se evalua siquiera si la cantidad de elementos de la posible solucion es 
 		// de tamaño n-1 (siendo n la cantidad de estaciones).
 		if(solucionActual.size() != (this.estaciones.size() - 1)){return false;}
@@ -160,8 +161,9 @@ public class CSVReader {
 		// (se unen todas las estaciones a traves de estos caminos). 
 		UnionFind unionFind = new UnionFind(this.estaciones);
 		
-		for (Arista arista : solucionActual) 
-			if(!unionFind.union(arista)){return false;}
+		Iterator<Arista> it = solucionActual.iterator();
+		while(it.hasNext())
+			if(!unionFind.union(it.next())){return false;}
 
 		// En caso de haber superado el bucle, quiere decir que al realizar todas las uniones de conjuntos, 
 		// no hubo ni 1 caso donde 2 estaciones pertenecieran al mismo conjunto.

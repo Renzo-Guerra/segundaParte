@@ -5,13 +5,16 @@ import java.util.List;
 
 public class ServicioMergeSort {
   private List<Arista> elementos;
-  private int size; 
   private List<Arista> helper;
+  private int size; 
 
   public ServicioMergeSort(List<Arista> lista){
     this.elementos = lista;
   }
 
+  /**
+   * Ordena los elementos de menor a mayor.
+   */
   public void sort(){
     this.size = this.elementos.size();
     this.helper = new ArrayList<>(this.size);

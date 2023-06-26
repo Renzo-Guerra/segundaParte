@@ -15,8 +15,8 @@ public class Main {
     System.out.println("Los posibles caminos son: ");
     System.out.println(reader.getPosiblesCaminos());
 
-    // System.out.println("\nSolucion por greedy:");
-    // reader.encontrarSolucionPorGreedy();
+    System.out.println("\nSolucion por greedy:");
+    reader.encontrarSolucionPorGreedy();
     
     System.out.println("\nSolucion por backtracking:");
     reader.encontrarSolucionPorBackTracking();

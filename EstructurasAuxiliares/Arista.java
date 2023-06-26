@@ -5,6 +5,12 @@ public class Arista {
   private Integer vertice2;
   private Integer valor;
 
+  /**
+   * Instancia una nueva arista.
+   * @param vertice1 (Integer) numero de la estacion_A.
+   * @param vertice2 (Integer) numero de la estacion_B.
+   * @param valor (Integer) distancia entre las estaciones.
+   */
   public Arista(Integer vertice1, Integer vertice2, Integer valor){
     this.vertice1 = vertice1;
     this.vertice2 = vertice2;

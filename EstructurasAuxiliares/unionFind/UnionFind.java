@@ -15,11 +15,12 @@ public class UnionFind {
 
   public UnionFind(Collection<Integer> elementos){
     valores = new HashMap<>(elementos.size());
-    caminosViables = new ArrayList<>(valores.size());
+    caminosViables = new ArrayList<>();
     this.longitudTotal = 0;
     cargarConjuntos(elementos);
   }
 
+  // Por cada elemento crea un nodo el cual lo contiene.   
   private void cargarConjuntos(Collection<Integer> elementos){
     Iterator<Integer> it = elementos.iterator();
     Integer aux;
@@ -42,10 +43,13 @@ public class UnionFind {
     return getUpperChain(currentNodo);
   }
 
+
+  //Dado un nodo, devuelve el nodo "raiz", en caso de que el nodo actual sea la raiz, se devuelve a si mismo. 
   private Nodo<Integer> getUpperChain(Nodo<Integer> currentNodo){
     if(currentNodo.getUpper() == null){
       return currentNodo;
     }else{
+      // Se llama recursivamente hasta encontrar al nodo "raiz"
       Nodo<Integer> aux = getUpperChain(currentNodo.getUpper());
       if(aux != null){
         return aux;
@@ -91,6 +95,9 @@ public class UnionFind {
     return true;
   }
 
+  /**
+   * Devuelve una copia de los caminos que se deberán construir
+   */
   public ArrayList<Arista> getCaminosViables(){
     return new ArrayList<>(this.caminosViables);
   }
