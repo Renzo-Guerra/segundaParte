@@ -6,7 +6,7 @@ import grafos.Grafo;
 import grafos.GrafoDirigido;
 import servicios.*;
 
-public class Main {
+public class Main2 {
 
 	public static <T> void mostrarGrafo (Grafo<T> grafo)
 	{

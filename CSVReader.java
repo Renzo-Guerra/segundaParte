@@ -119,7 +119,6 @@ public class CSVReader {
 
 	public void auxBackMejorSolucionValida(Pila mejorSolucion, Pila solucionActual){
 		this.contadorParaBackTracking++;
-		System.out.println("Iteracion numero: " + this.contadorParaBackTracking);
 		// Se aumenta en 1 el contador de cantidad de veces que se ejecuto el metodo backtracking.
 		// Quiere decir que ya encontró a la minima cantidad de caminos necesarios 
 		// para unir las n estaciones con n-1 caminos

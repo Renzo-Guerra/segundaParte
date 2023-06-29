@@ -1,4 +1,4 @@
-public class Main {
+public class Main1 {
 	public static void main(String[] args) {
     /**
      * Dada una ruta a un archivo el cual contiene registros, los cuales especifican:
