@@ -73,6 +73,7 @@ public class CSVReader {
 		return lines;
 	}
 
+	// El peor caso sería que cicle a traves de cada camino del txt, seria O(n) siendo n la cantidad de caminos dados.
 	public void encontrarSolucionPorGreedy(){
 		// Se crea una copia de los caminos, para que ESTOS sean los ordenados ascendentemente
 		// Sino al hacer el back, tendria que crear otra instancia del CSVReader...
@@ -85,11 +86,14 @@ public class CSVReader {
 		UnionFind servicioUnion = new UnionFind(this.estaciones);
 		int indiceAct = 0;
 
-		while((!servicioUnion.unionComplete()) && (indiceAct < caminosAux.size())){
+		// UnionFind.unionComplete tiene una complejidad O(n) siendo n la cantidad de "estaciones"
+		while((servicioUnion.getCantCaminosViables() < (this.estaciones.size() - 1)) && (indiceAct < caminosAux.size())){
 			this.contadorParaGreedy++; // Se aumenta en 1 el contador de cantidad de veces que se ejecuto el metodo greedy.
 			servicioUnion.union(caminosAux.get(indiceAct++));
 		}
+
 		System.out.println("El greedy se ejecutó " + contadorParaGreedy + " veces.");
+		// Complejidad de unionComplete es de O(n) siendo n la cantidad de estaciones.
 		if(servicioUnion.unionComplete()){
 			System.out.println("Caminos a construir: " + servicioUnion.getCaminosViables());
 			System.out.println("La suma de los caminos anteriores da un total de: " + servicioUnion.getLongitudTotal() + " km.");
@@ -114,7 +118,9 @@ public class CSVReader {
 	}
 
 	public void auxBackMejorSolucionValida(Pila mejorSolucion, Pila solucionActual){
-		this.contadorParaBackTracking++; // Se aumenta en 1 el contador de cantidad de veces que se ejecuto el metodo backtracking.
+		this.contadorParaBackTracking++;
+		System.out.println("Iteracion numero: " + this.contadorParaBackTracking);
+		// Se aumenta en 1 el contador de cantidad de veces que se ejecuto el metodo backtracking.
 		// Quiere decir que ya encontró a la minima cantidad de caminos necesarios 
 		// para unir las n estaciones con n-1 caminos
 		if(backtrackingSolucionValida(mejorSolucion, solucionActual)){
@@ -128,8 +134,10 @@ public class CSVReader {
 			 *    dando a entender que no es necesario que siga quitando elementos de "caminos" y volverse a llamar con el mismo 
 			 *    conjunto de n-1 caminos. 
 			 *  - El !this.caminos.isEmpty() es para que no se intente remover un indice de algo que no tiene elementos.
+			 *  - La ultima validacion descarta varias soluciones las cuales como maximo llegaran a conformar 
+			 *    conjuntos de (estaciones-2) caminos.
 			 */
-			if((solucionActual.size() < (this.estaciones.size() - 1)) && (!this.caminos.isEmpty())){
+			if((solucionActual.size() < (this.estaciones.size() - 1)) && (!this.caminos.isEmpty()) && ((solucionActual.size() + this.caminos.size()) >= (this.estaciones.size() - 1))){
 				Arista aux = this.caminos.remove(0);
 				// Aca no es necesaria la poda que se utiliza abajo, ya que lo unico que cambia es que eliminamos un valor en caminos,
 				// Lo cual no afecta la sumatoria de la solucionActual

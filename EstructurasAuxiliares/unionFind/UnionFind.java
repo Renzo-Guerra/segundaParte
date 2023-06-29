@@ -102,6 +102,10 @@ public class UnionFind {
     return new ArrayList<>(this.caminosViables);
   }
 
+  public int getCantCaminosViables(){
+    return this.caminosViables.size();
+  }
+
   // Solo devuelve la longitud del camino en caso de 
   // que se haya encontrado una solucion
   public Integer getLongitudTotal() {
