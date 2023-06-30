@@ -79,7 +79,7 @@ public class CSVReader {
 		// Sino al hacer el back, tendria que crear otra instancia del CSVReader...
 		ArrayList<Arista> caminosAux = new ArrayList<>(this.caminos);
 		ServicioMergeSort servicio = new ServicioMergeSort(caminosAux);
-		this.contadorParaGreedy = 1;
+		this.contadorParaGreedy = 0;
 		// Se ordenan ascendentemente los caminos (teniendo en cuenta la distancia entre las estaciones)
 		servicio.sort();
 		// System.out.println(this.caminosAux); // Se muestan los caminos ordenados de ascendentemente (por longitud de caminos)
@@ -106,7 +106,7 @@ public class CSVReader {
 	public void encontrarSolucionPorBackTracking(){
 		Pila mejorSolucion = new Pila();
 		Pila solucionActual = new Pila();
-		this.contadorParaBackTracking = 1;
+		this.contadorParaBackTracking = 0;
 		auxBackMejorSolucionValida(mejorSolucion, solucionActual);
 		System.out.println("El backtracking se ejecutó " + contadorParaBackTracking + " veces.");
 		if(!mejorSolucion.isEmpty()){
